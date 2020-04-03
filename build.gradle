@@ -1,0 +1,39 @@
+plugins {
+    // Apply some plugins to add support for ...
+    // IntelliJ IDEA
+    id 'idea'
+    // Dependency manager
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    // Fat-jar builder
+    id 'com.github.johnrengelman.shadow' version '5.2.0' apply false
+}
+
+idea {
+    project {
+        languageLevel = 13
+    }
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+ext {
+    // Version definition for Google Guava
+    guavaVersion = '28.2-jre'
+}
+
+allprojects {
+    group 'ru.otus'
+
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'io.spring.dependency-management'
+    dependencyManagement {
+        dependencies {
+            dependency group: 'com.google.guava', name: 'guava', version: guavaVersion
+        }
+    }
+}
